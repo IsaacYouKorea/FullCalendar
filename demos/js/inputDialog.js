@@ -10,10 +10,22 @@ var InputDialog =(function(){
         dom = $("#inputDialog"),
         domTitle = null,
         domCreate = null,
-        domCancel = null;
+        domCancel = null,
+        dataTitle = null,
+        dataStartDate = null,
+        dataEndDate = null,
+        dataTeam = null;
 
+    var init = function(start, end){
+        dataTitle = null;
+        dataStartDate = start;
+        dataEndDate = end;
+        dataTeam = null;
+        domTitle.val(dataTitle);
+    }
 
-    var show = function(){
+    var show = function(_x, _y){
+        dom.css({left:_x, top:_y});
         dom.fadeIn();
     }
 
@@ -31,7 +43,23 @@ var InputDialog =(function(){
 
     domCreate.click(function(){
         console.log("create");
-        app.insertEvent(inputData);
+        var inputData;
+
+        var title  = domTitle.val();
+        var eventData;
+
+        if (title) {
+            eventData = {
+                title: title,
+                start: dataStartDate,
+                end: dataEndDate
+            };
+            console.log(eventData);
+        }
+        app.calendar.insertEvent(eventData);
+
+        hide();
+        init();
     });
 
     domCancel.click(function(){
@@ -41,12 +69,13 @@ var InputDialog =(function(){
 
 
     return {
-        init:function(){
+        init:function(_start, _end){
+            init(_start, _end);
             hide();
         },
 
-        show:function( _start, _end){
-            show();
+        show:function(_x, _y){
+            show(_x, _y);
         },
 
         hide:function(){

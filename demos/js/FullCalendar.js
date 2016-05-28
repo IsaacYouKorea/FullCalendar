@@ -20,7 +20,9 @@ var FullCalendar=(function(){
             selectable: true,
             selectHelper: false,
             select: function(start, end, jsEvent){
-                app.inputDialog.show();
+                console.log(jsEvent);
+                app.inputDialog.init(start, end);
+                app.inputDialog.show(jsEvent.pageX, jsEvent.pageY);
             },
             editable: true,
             eventLimit: true, // allow "more" link when too many events
@@ -40,14 +42,17 @@ var FullCalendar=(function(){
 
 
 
+
     return {
         init:function(_data){
             console.log("cal init");
             init(_data);
         },
 
-        addEvent:function(){
-
+        insertEvent:function(_data){
+            console.log(_data);
+            dom.fullCalendar('renderEvent', _data, true); // stick? = true
+            dom.fullCalendar('unselect');
         },
 
         removeEvent:function(){
