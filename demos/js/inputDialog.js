@@ -83,9 +83,6 @@ var InputDialog =(function(){
             hide();
         },
 
-        testApp:function(){
-            app.callApp();
-        }
     }
 
 });

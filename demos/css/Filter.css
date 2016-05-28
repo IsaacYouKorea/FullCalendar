@@ -1,0 +1,44 @@
+
+#filter input[class*="item"]{
+    width:50px;
+    height:50px;
+}
+
+#filter .item[color="class1"] {
+    background-color: red;
+}
+
+#filter .item[color="class2"]{
+    background-color: orange;
+}
+
+#filter .item[color="class3"]{
+    background-color: yellow;
+}
+
+#filter .item[color="class4"]{
+    background-color: green;
+}
+
+#filter .item[color="class5"]{
+    background-color: blue;
+}
+
+#filter .item[color="class6"]{
+    background-color: navy;
+}
+
+#filter .item[color="class7"]{
+    background-color: purple;
+}
+
+
+
+#filter #1{
+    color: black;
+}
+
+#filter .notice{
+
+}
+

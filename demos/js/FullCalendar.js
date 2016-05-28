@@ -24,6 +24,7 @@ var FullCalendar=(function(){
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            dragOpacity:0.75,
             defaultDate: '2016-05-12',
             selectable: true,
             selectHelper: false,
@@ -33,10 +34,17 @@ var FullCalendar=(function(){
                 app.inputDialog.show(jsEvent.pageX, jsEvent.pageY);
             },
             editable: true,
-            eventLimit: true, // allow "more" link when too many events
+            eventLimit: true, // allow "more" link when too many events,
+            droppable: true, // this allows things to be dropped onto the calendar
+            drop: function() {
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+            },
             events: _data
         });
-
     }
 
     var show = function(){
@@ -47,6 +55,10 @@ var FullCalendar=(function(){
 
     }
 
+    var filter = function(){
+
+    }
+
     var insertEvent = function(_data){
         dom.fullCalendar('renderEvent', _data, true); // stick? = true
         dom.fullCalendar('unselect');
@@ -54,11 +66,9 @@ var FullCalendar=(function(){
 
 
 
-
-
     return {
         init:function(_data){
-            console.log("cal init");
+            console.log(_data);
             init(_data);
         },
 
@@ -66,7 +76,7 @@ var FullCalendar=(function(){
             insertEvent(_data);
         },
 
-        insertClass:function(_title, _start, _end, _sthour, _endhour){
+        insertClass:function(_title, _start, _end, _sthour, _endhour, _className){
 
             var startDate = new Date(_start);
             var endDate = new Date(_end);
@@ -80,9 +90,8 @@ var FullCalendar=(function(){
                 endTime.setHours(_endhour);
 
                 startDate.setDate(startDate.getDate() + 7);
-                insertEvent({"title":_title, "start":startTime, "end":endTime});
+                insertEvent({"title":_title, "start":startTime, "end":endTime, "className":_className});
             }
-
 
         },
 
@@ -93,6 +102,12 @@ var FullCalendar=(function(){
         updateEvent:function(){
 
         },
+
+        filter:function(_selector){
+            dom.find("."+_selector).addClass("notice");
+            dom.find(".fc-event").not("."+_selector).removeClass("notice");
+            //$(".fc-content").not(_selector).removeClass("notice");
+        }
 
 
     }
