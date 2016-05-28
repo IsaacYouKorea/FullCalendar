@@ -27,11 +27,12 @@ var InputDialog =(function(){
     var show = function(_x, _y){
         dom.css({left:_x, top:_y});
         dom.fadeIn();
+        domTitle.focus();
     }
 
     var hide = function(){
         console.log(dom);
-        dom.fadeOut();
+        dom.hide();
         domTitle.val(null);
         console.log("hide");
     }

@@ -1,20 +1,12 @@
 /**
  * Created by YJIsaac on 2016. 5. 28..
-
-    FullCalendar API
-
-    추가기능 :
-        1.  과목 추가하기 (insertClass(강의 이름, 강의시작날짜 강의종료날짜 강의 시작시간 강의 끝나는 시간));
-
-
-
  */
 
-var FullCalendar=(function(){
+var DropEvent=(function(){
     "use strict"
 
     var index = 1,
-        dom = $("#calendar");
+        dom = $("");
 
     var init = function(_data){
 
@@ -47,11 +39,6 @@ var FullCalendar=(function(){
 
     }
 
-    var insertEvent = function(_data){
-        dom.fullCalendar('renderEvent', _data, true); // stick? = true
-        dom.fullCalendar('unselect');
-    }
-
 
 
 
@@ -63,27 +50,9 @@ var FullCalendar=(function(){
         },
 
         insertEvent:function(_data){
-            insertEvent(_data);
-        },
-
-        insertClass:function(_title, _start, _end, _sthour, _endhour){
-
-            var startDate = new Date(_start);
-            var endDate = new Date(_end);
-
-            while(startDate <= endDate){
-
-                var startTime = new Date(startDate.getTime());
-                startTime.setHours(_sthour);
-
-                var endTime = new Date(startDate.getTime());
-                endTime.setHours(_endhour);
-
-                startDate.setDate(startDate.getDate() + 7);
-                insertEvent({"title":_title, "start":startTime, "end":endTime});
-            }
-
-
+            console.log(_data);
+            dom.fullCalendar('renderEvent', _data, true); // stick? = true
+            dom.fullCalendar('unselect');
         },
 
         removeEvent:function(){
@@ -92,9 +61,7 @@ var FullCalendar=(function(){
 
         updateEvent:function(){
 
-        },
-
-
+        }
     }
 
 });
